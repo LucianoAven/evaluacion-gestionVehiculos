@@ -1,0 +1,28 @@
+{% extends "home/base.html" %}
+{% block content %}
+<div class="container mt-3">
+
+    <h2>Detalles del Modelo de Auto</h2>
+    <div class="card">
+
+        <!-- Todos los detalles almacenados en el modelo del auto seleccionado -->
+        <div class="card-body">
+            <h5 class="card-title"><strong>Modelo:</strong> {{ auto.name }}</h5>
+            <p class="card-text"><strong>Marca:</strong> {{ auto.mark.name }}</p>
+            <p class="card-text"><strong>Precio:</strong> ${{ auto.price }}</p>
+            <p class="card-text"><strong>Año:</strong> {{ auto.year.name }}</p>
+            <p class="card-text"><strong>Combustible:</strong> {{ auto.fuel.name }}</p>
+            <p class="card-text"><strong>Pais:</strong> {{ auto.country.name }}</p>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'auto_update' auto.id %}" class="btn btn-primary">Editar</a>
+                <a href="{% url 'auto_delete' auto.id %}" class="btn btn-danger">Eliminar</a>
+            {% endif %}
+
+            <a href="{% url 'auto_list' %}" class="btn btn-secondary">Volver a la lista</a>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

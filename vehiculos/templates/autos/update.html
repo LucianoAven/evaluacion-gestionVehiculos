@@ -1,0 +1,82 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container mt-3">
+
+    <h2>Actualizar Auto</h2>
+    <form method="post">
+
+        {% csrf_token %}
+
+        <!-- Permite actualizar cualquier caracteristica del modelo de auto -->
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" name="name" class="form-control" value="{{ auto.name }}" required>
+        </div>
+
+        <div class="form-group mt-3">
+            <label>Marca de auto</label>
+            <select name="id_mark" class="form-control">
+
+                {% for mark in marks %}
+                    <option value="{{ mark.id }}" {% if mark.id == auto.mark.id %} selected {% endif %}>
+                        {{ mark.name }}
+                    </option>
+                {% endfor %}
+
+            </select>
+            <a href="{% url 'marca_create' %}" class="btn btn-success mb-3 mt-1">Agregar nueva Marca de Auto a la lista</a>
+        </div>
+
+        <div class="form-group">
+            <label>Precio</label>
+            <input type="number" name="price" class="form-control" value="{{ auto.price }}" required>
+        </div>
+
+        <div class="form-group mt-3">
+            <label>Año de Fabricación</label>
+            <select name="id_year" class="form-control">
+
+                {% for year in years %}
+                    <option value="{{ year.id }}" {% if year.id == auto.year.id %} selected {% endif %}>
+                        {{ year.name }}
+                    </option>
+                {% endfor %}
+
+            </select>
+        </div>
+
+        <div class="form-group mt-3">
+            <label>Combustible</label>
+            <select name="id_fuel" class="form-control">
+
+                {% for fuel in fuels %}
+                    <option value="{{ fuel.id }}" {% if fuel.id == auto.fuel.id %} selected {% endif %}>
+                        {{ fuel.name }}
+                    </option>
+                {% endfor %}
+
+            </select>
+            <a href="{% url 'marca_create' %}" class="btn btn-success mb-3 mt-1">Agregar nuevo Tipo de Combustible a la lista</a>
+        </div>
+
+        <div class="form-group">
+            <label>Pais de Fabricación</label>
+            <select name="id_country" class="form-control">
+
+                {% for country in countries %}
+                    <option value="{{ country.id }}" {% if country.id == auto.country.id %} selected {% endif %}>
+                        {{ country.name }}
+                    </option>
+                {% endfor %}
+
+            </select>
+            <a href="{% url 'marca_create' %}" class="btn btn-success mb-3 mt-1">Agregar nuevo Pais de Fabricación a la lista</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+
+    </form>
+    
+</div>
+{% endblock %}

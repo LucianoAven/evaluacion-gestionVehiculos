@@ -1,0 +1,35 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container mt-3">
+
+    <h2>Lista de Año de Fabricación de Autos</h2>
+    <a href="{% url 'filters' %}" class="btn btn-secondary mb-3">Volver</a>
+
+    <table class="table table-striped">
+
+        <thead>
+            <tr>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <!-- Lista de todos los años de fabricación disponibles -->
+            {% for year in years %}
+                <tr>
+                    <td>{{ year.name }}</td>
+
+                    <td>
+                        <a href="{% url 'anio_detail' year.id %}" class="btn btn-info btn-sm">Filtrar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+{% endblock %}

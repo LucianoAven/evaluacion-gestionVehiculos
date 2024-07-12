@@ -1,0 +1,58 @@
+{% extends "home/base.html" %}
+{% block content %}
+<div class="container mt-3">
+
+    <h2>Detalles de la Marca</h2>
+    <div class="card">
+
+        <div class="card-body">
+            <h5 class="card-title"><strong>Marca de auto:</strong> {{ mark.name }}</h5>
+
+            {% if user.is_authenticated %}
+                <a href="{% url 'marca_update' mark.id %}" class="btn btn-primary">Editar</a>
+            {% endif %}
+
+            <a href="{% url 'marca_list' %}" class="btn btn-secondary">Volver a la lista</a>
+        </div>
+
+    </div>
+
+    <table class="table table-striped">
+
+        <thead class="thead-inverse">
+            <tr>
+                <th>ID</th>
+                <th>Modelo de auto</th>
+                <th>Marca de auto</th>
+                <th>Precio</th>
+                <th>Año de Fabricación</th>
+                <th>País de Fabricación</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for car in cars %}
+                <tr>
+                    <td scope="row">{{car.id}}</td>
+                    <td>{{ car.name }}</td>
+                    <td>{{ car.mark }}</td>
+                    <td>{{ car.price }}</td>
+                    <td>{{ car.year }}</td>
+                    <td>{{ car.country }}</td>
+
+                    <td>
+                        <a href="{% url 'auto_detail' car.id %}" class="btn btn-info btn-sm">Detalles</a>
+
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'auto_update' car.id %}" class="btn btn-success btn-sm">Editar</a>
+                        {% endif %}
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>        
+
+    </table>
+
+</div>
+{% endblock %}

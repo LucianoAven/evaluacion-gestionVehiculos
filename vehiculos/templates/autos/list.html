@@ -1,0 +1,75 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container mt-3">
+
+    <h1><strong>Lista de Autos</strong></h1>
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'auto_create' %}" class="btn btn-primary mb-3">Agregar Auto</a>
+    {% endif %}
+
+    <table class="table table-striped">
+
+        <!-- Nombre de cada caracteristica de los autos que se mostrará por pantalla -->
+        <thead>
+            <tr>
+                <th>Modelo</th>
+                <th>Marca</th>
+                <th>Precio</th>
+                <th>Año</th>
+                <th>Combustible</th>
+                <th>Pais</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <!-- Modelos de autos almacenados en la base de datos -->
+            {% for car in cars %}
+                <tr>
+                    <td>{{ car.name }}</td>
+
+                    {% if car.mark.name  %}
+                        <td>{{ car.mark.name }}</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
+
+                    <td>${{ car.price }}</td>
+
+                    {% if car.year.name  %}
+                        <td>{{ car.year.name }}</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
+
+                    {% if car.fuel.name  %}
+                        <td>{{ car.fuel.name }}</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
+
+                    {% if car.country.name  %}
+                        <td>{{ car.country.name }}</td>
+                    {% else %}
+                        <td>-</td>
+                    {% endif %}
+
+                    <td>
+                        <a href="{% url 'auto_detail' car.id %}" class="btn btn-info btn-sm">Más detalles</a>
+
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'auto_update' car.id %}" class="btn btn-success btn-sm">Editar</a>
+                            <a href="{% url 'auto_delete' car.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+{% endblock %}
